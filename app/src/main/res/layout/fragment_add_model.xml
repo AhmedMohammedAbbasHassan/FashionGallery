@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<ImageView
+
+    android:id="@+id/add_model_img"
+    android:layout_width="200dp"
+    android:layout_height="150dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
+    android:src="@drawable/select_product_image"
+    android:scaleType="fitCenter"
+
+    />
+
+
+    <EditText
+        android:id="@+id/model_name_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_model_img"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Model Name"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/model_price_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/model_name_add"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Model price"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/desc_add_model"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/model_price_add"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="Model Description"
+        android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:maxLines="10"
+
+        android:gravity="top"
+        android:paddingBottom="0dp"
+
+        />
+
+
+
+    <RadioGroup
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radioGroup_add_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@+id/desc_add_model"
+        android:layout_marginTop="5dp"
+        android:outlineAmbientShadowColor="@color/colorSplash"
+        android:outlineSpotShadowColor="@color/colorSplash"
+
+        >
+
+        <RadioButton
+            android:buttonTint="@color/colorSplash"
+            android:id="@+id/men_wear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_men_wear"
+            android:checked="true"
+            android:textColor="@color/colorSplash"
+            android:textSize="14sp"
+            android:gravity="center"
+            />
+
+        <RadioButton
+            android:gravity="center"
+            android:id="@+id/women_wear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_women_wear"
+            android:textColor="@color/colorSplash"
+            android:textSize="14sp"
+            />
+
+
+        <RadioButton
+            android:id="@+id/children_wear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_children_wear"
+            android:textColor="@color/colorSplash"
+            android:textSize="14sp"
+            android:gravity="center"
+            />
+
+
+    </RadioGroup>
+
+
+    <Spinner
+        android:id="@+id/spinner_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup_add_model"
+        android:padding="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/input_design2"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/radio_children_wear"
+
+        >
+
+
+    </Spinner>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons2"
+        android:text="Add Model"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/spinner_1"
+        android:layout_marginTop="50dp"
+        />
+
+    </RelativeLayout>
+</ScrollView>
