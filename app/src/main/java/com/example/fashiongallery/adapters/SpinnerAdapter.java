@@ -70,13 +70,34 @@ public class SpinnerAdapter extends BaseAdapter {
         linearLayout.setBackgroundColor(Color.parseColor("#22333B"));
         TextView textView = (TextView)linearLayout.findViewById(R.id.spinner_tv);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(Color.parseColor("#ffffff"));
+if (position==0){
+
+    textView.setTextColor(Color.GRAY);
+
+}else {
+
+    textView.setTextColor(Color.parseColor("#ffffff"));
+
+}
+
         textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
         return view;
 
     }
 
+    @Override
+    public boolean isEnabled(int position) {
 
+        if (position == 0){
 
+            return false;
+        }
+
+        else {
+
+            return true;
+        }
+
+    }
 }

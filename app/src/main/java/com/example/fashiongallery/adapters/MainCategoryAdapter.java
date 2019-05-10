@@ -16,11 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fashiongallery.AppController;
-import com.example.fashiongallery.MainActivity;
 import com.example.fashiongallery.R;
 import com.example.fashiongallery.data.MainCategoryData;
-import com.example.fashiongallery.fragments.HomeFragment;
 import com.example.fashiongallery.fragments.SubCategoryFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
         MainCategoryData data  = categoryDataList.get(i);
 
-        mainCategoryViewHolder.imageView.setImageResource(data.getImageSrc());
+        Picasso.get().load(data.getImageSrc()).into(mainCategoryViewHolder.imageView);
         mainCategoryViewHolder.titleTextView.setText(data.getTitle());
         mainCategoryViewHolder.subTitle.setText(data.getSubTitle());
 

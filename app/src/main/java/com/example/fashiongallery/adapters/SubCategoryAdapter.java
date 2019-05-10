@@ -18,6 +18,7 @@ import com.example.fashiongallery.R;
 import com.example.fashiongallery.data.SubCategoryData;
 import com.example.fashiongallery.fragments.ModelListFragment;
 import com.example.fashiongallery.fragments.SubCategoryFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,7 +53,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
        SubCategoryData subData = categoryDataList.get(i);
 
        subCategoryViewHolder.titleTextView.setText(subData.getTitle());
-       subCategoryViewHolder.imageView.setImageResource(subData.getIconSrc());
+
+
+        subCategoryViewHolder.imageView.setImageResource(subData.getIconSrc());
+
+
 
     }
 

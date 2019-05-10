@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.fashiongallery.R;
 import com.example.fashiongallery.api.model.Model;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
 
         Model model  = modelList.get(i);
-        modelListViewHilder.imageView.setImageResource(model.getModelImage());
+        //modelListViewHilder.imageView.setImageResource(model.getModelImage());
+        Picasso.get().load(model.getModelImage()).into(modelListViewHilder.imageView);
+
         modelListViewHilder.titleTextView.setText(model.getModelTitle());
         modelListViewHilder.priceTextView.setText(model.getModelPrice());
 
