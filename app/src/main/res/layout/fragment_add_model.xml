@@ -19,7 +19,6 @@
     android:layout_marginTop="10dp"
     android:src="@drawable/select_product_image"
     android:scaleType="fitCenter"
-
     />
 
 
@@ -154,6 +153,7 @@
     </Spinner>
 
     <Button
+        android:id="@+id/add_model_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttons2"
