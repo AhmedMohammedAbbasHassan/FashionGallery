@@ -38,8 +38,8 @@ public interface ClintApi {
 
 
     @Multipart
-    @POST("uploadTest.php/")
-    Call<ResponseInfo> upload(@Part MultipartBody.Part img, @Part("name") RequestBody name);
+    @POST("uploadModel.php/")
+    Call<ResponseInfo> upload(@Part MultipartBody.Part img, @Part("name") RequestBody name, @Part("price") RequestBody price, @Part("desc") RequestBody desc, @Part("mCategory") RequestBody mCategory, @Part("sCategory") RequestBody sCategory, @Part("userId") RequestBody userId);
 
 
 

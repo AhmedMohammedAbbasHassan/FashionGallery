@@ -3,6 +3,7 @@ package com.example.fashiongallery.fragments;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -20,8 +21,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -34,7 +38,9 @@ import com.example.fashiongallery.api.services.ClintApi;
 import com.example.fashiongallery.api.services.Connection;
 import com.example.fashiongallery.responses.ResponseInfo;
 import com.example.fashiongallery.responses.ServerResponse;
+import com.example.fashiongallery.utils.AppUtils;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,6 +67,11 @@ public class AddModelFragment extends Fragment {
     private Uri imageUri ;
     private Button button ;
     String imagePath;
+    private Spinner spinner;
+    String mCategory = "0";
+    private RotateLoading rotateLoading  ;
+
+    private EditText modelNameEditText , priceEditText , descEditText ;
 
 
     @Nullable
@@ -76,9 +87,14 @@ public class AddModelFragment extends Fragment {
 
    imageView  = (ImageView)view.findViewById(R.id.add_model_img);
    button  =  (Button)view.findViewById(R.id.add_model_btn);
+   rotateLoading  = (RotateLoading)view.findViewById(R.id.loading_add_model);
+   modelNameEditText = (EditText)view.findViewById(R.id.model_name_add);
+   priceEditText   = (EditText)view.findViewById(R.id.model_price_add);
+   descEditText    = (EditText)view.findViewById(R.id.desc_add_model);
+
         menData();
         group  = (RadioGroup)view.findViewById(R.id.radioGroup_add_model);
-        final Spinner spinner = (Spinner)view.findViewById(R.id.spinner_1);
+        spinner = (Spinner)view.findViewById(R.id.spinner_1);
 
          adapter = new SpinnerAdapter(myList,getActivity());
         spinner.setAdapter(adapter);
@@ -88,6 +104,8 @@ public class AddModelFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.men_wear){
+
+                    mCategory= "0";
                     myList.clear();
                     menData();
 
@@ -95,7 +113,7 @@ public class AddModelFragment extends Fragment {
                     spinner.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }else if (checkedId == R.id.women_wear){
-
+                    mCategory= "1";
                     myList.clear();
                     womenData();
 
@@ -104,7 +122,7 @@ public class AddModelFragment extends Fragment {
                     spinner.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }else {
-
+                   mCategory="2";
                    myList.clear();
                     childrenData();
 
@@ -130,14 +148,14 @@ button.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
 
-       if (imagePath!=null)
-       {
+
 
            uploadForm();
-       }
+
 
     }
 });
+
 
 
     }
@@ -345,38 +363,126 @@ button.setOnClickListener(new View.OnClickListener() {
 
 void uploadForm(){
 
+    AppUtils.showLoading(true,rotateLoading,getActivity());
+        String modelName  = modelNameEditText.getText().toString();
+        String modelPrice = priceEditText.getText().toString();
+        String modelDesc = descEditText.getText().toString();
 
 
-    File file = new File(imagePath);
+        if (validate(modelName,modelPrice,modelDesc)) {
 
-    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
-    MultipartBody.Part body = MultipartBody.Part.createFormData("img",file.getName(),requestBody);
-    RequestBody name = RequestBody.create(MultipartBody.FORM,"ahmed");
-    Retrofit retrofit  = Connection.instance().build();
-    ClintApi clint = retrofit.create(ClintApi.class);
-    Call<ResponseInfo> call  =clint.upload(body,name);
+            File file = new File(imagePath);
 
-    call.enqueue(new Callback<ResponseInfo>() {
-        @Override
-        public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
+            RequestBody name = RequestBody.create(MultipartBody.FORM, modelName);
+            RequestBody price = RequestBody.create(MultipartBody.FORM, modelPrice);
+            RequestBody desc = RequestBody.create(MultipartBody.FORM, modelDesc);
+            RequestBody mCategoryFinal = RequestBody.create(MultipartBody.FORM, mCategory);
+            RequestBody sCategory = RequestBody.create(MultipartBody.FORM, String.valueOf(spinner.getSelectedItemPosition()));
+            RequestBody userId = RequestBody.create(MultipartBody.FORM, getUserId());
 
-            Toast.makeText(AppController.getContext(), "done", Toast.LENGTH_SHORT).show();
+            Retrofit retrofit = Connection.instance().build();
+            ClintApi clint = retrofit.create(ClintApi.class);
+            Call<ResponseInfo> call = clint.upload(body, name, price, desc, mCategoryFinal, sCategory, userId);
+
+            call.enqueue(new Callback<ResponseInfo>() {
+                @Override
+                public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {
+
+                    AppUtils.showLoading(false,rotateLoading,getActivity());
+                    Toast.makeText(AppController.getContext(), "done", Toast.LENGTH_SHORT).show();
+                    setEmpty();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseInfo> call, Throwable t) {
+                    AppUtils.showLoading(false,rotateLoading,getActivity());
+                    Toast.makeText(AppController.getContext(), "error //" +t.getMessage() , Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }else{
+
+            AppUtils.showLoading(false,rotateLoading,getActivity());
+
         }
 
-        @Override
-        public void onFailure(Call<ResponseInfo> call, Throwable t) {
-
-            Toast.makeText(AppController.getContext(), "error", Toast.LENGTH_SHORT).show();
-
-            Log.d("mike",t.getMessage());
-        }
-    });
 
 
 }
 
 
 
+
+    public boolean validate(String name,String desc ,String price) {
+
+
+        boolean valid = true;
+
+
+
+
+        if (name.isEmpty() || name.length() < 4 || name.length() > 15) {
+            modelNameEditText.setError("between 4 and 15 alphanumeric characters");
+            valid = false;
+        } else {
+            modelNameEditText.setError(null);
+        }
+
+        if (desc.isEmpty() ) {
+            descEditText.setError("between 10 and 30 alphanumeric characters");
+            valid = false;
+        } else {
+            descEditText.setError(null);
+        }
+        if (price.isEmpty() ) {
+            priceEditText.setError("between 1 and 5 alphanumeric characters");
+            valid = false;
+        } else {
+            priceEditText.setError(null);
+        }
+
+        if (imagePath==null){
+
+            Toast.makeText(AppController.getContext(), "please select photo model", Toast.LENGTH_SHORT).show();
+            valid=false;
+        }
+
+
+        if (spinner.getSelectedItemPosition()==0){
+
+            Toast.makeText(AppController.getContext(), "please select sub category", Toast.LENGTH_SHORT).show();
+        }
+
+        return valid;
+    }
+
+
+
+    String getUserId(){
+
+
+        SharedPreferences prefs = AppController.getContext().getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
+        String userId  = prefs.getString("userId", "");
+
+        return userId;
+    }
+
+
+    void setEmpty(){
+
+        imagePath =null;
+        imageUri= null;
+        imageView.setImageResource(R.drawable.ic_menu_camera);
+        modelNameEditText.setText("");
+        priceEditText.setText("");
+        descEditText.setText("");
+
+
+
+    }
 
 
 

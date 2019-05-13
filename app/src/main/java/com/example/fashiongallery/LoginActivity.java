@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.fashiongallery.api.services.Connection;
 import com.example.fashiongallery.api.services.ClintApi;
 import com.example.fashiongallery.responses.LoginResponse;
+import com.example.fashiongallery.utils.AppUtils;
 import com.example.fashiongallery.utils.SharedPreferenceUtils;
 import com.victor.loading.rotate.RotateLoading;
 import retrofit2.Call;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     {
 
 
-        showLoading(true);
+        AppUtils.showLoading(true,rotateLoading,LoginActivity.this);
         final String email     =  emailLoginEditText.getText().toString();
         String password  =  passwordLoginEditText.getText().toString();
 
@@ -86,21 +87,19 @@ public class LoginActivity extends AppCompatActivity {
                     {
 
                         SharedPreferenceUtils.saveUserDate(loginResponse.getId(),loginResponse.getEmail(),loginResponse.getUserName(),loginResponse.getGender());
-                       // saveUserDate(loginResponse.getEmail());
-                       // SharedPreferenceUtils.saveUserDate(loginResponse.getId(),loginResponse.getEmail(),loginResponse.getUserName(),loginResponse.getGender() );
                         Toast.makeText(LoginActivity.this, "user name is :" + loginResponse.getUserName(), Toast.LENGTH_SHORT).show();
-                        showLoading(false);
+                        AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
                         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK );
                         startActivity(intent);
                     }else if(loginResponse.getCode() == 201){
 
-                        showLoading(false);
+                        AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
                         Toast.makeText(LoginActivity.this, "Please check your email or password", Toast.LENGTH_SHORT).show();
 
                     }else{
 
-                        showLoading(false);
+                        AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
                         Toast.makeText(LoginActivity.this, "unexpected error", Toast.LENGTH_SHORT).show();
 
                     }
@@ -109,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable throwable) {
 
-                    showLoading(false);
+                    AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
                     Toast.makeText(LoginActivity.this, "Check your Connection", Toast.LENGTH_SHORT).show();
 
                 }
@@ -120,29 +119,13 @@ public class LoginActivity extends AppCompatActivity {
         }else
         {
 
-            showLoading(false);
+            AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
         }
 
 
 
     }
 
-
-    void showLoading(boolean show)
-    {
-        if (show)
-        {
-            rotateLoading.start();
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-        }else {
-
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            rotateLoading.stop();
-        }
-
-    }
 
 
 
