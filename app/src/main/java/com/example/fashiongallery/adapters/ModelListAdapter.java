@@ -1,12 +1,8 @@
 package com.example.fashiongallery.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +49,10 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
         Model model  = modelList.get(i);
         //modelListViewHilder.imageView.setImageResource(model.getModelImage());
-        Picasso.get().load(model.getModelImage()).into(modelListViewHilder.imageView);
+        Picasso.get().load(model.getImg_url()).into(modelListViewHilder.imageView);
 
-        modelListViewHilder.titleTextView.setText(model.getModelTitle());
-        modelListViewHilder.priceTextView.setText(model.getModelPrice());
+        modelListViewHilder.titleTextView.setText(model.getName());
+        modelListViewHilder.priceTextView.setText(model.getPrice());
 
         modelListViewHilder.addFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@ package com.example.fashiongallery.api.services;
 
 
 import com.example.fashiongallery.responses.LoginResponse;
+import com.example.fashiongallery.responses.ModelResponse;
 import com.example.fashiongallery.responses.ResponseInfo;
 import com.example.fashiongallery.responses.ServerResponse;
 import com.example.fashiongallery.responses.SignupResponse;
@@ -16,6 +17,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -40,8 +42,9 @@ public interface ClintApi {
     @Multipart
     @POST("uploadModel.php/")
     Call<ResponseInfo> upload(@Part MultipartBody.Part img, @Part("name") RequestBody name, @Part("price") RequestBody price, @Part("desc") RequestBody desc, @Part("mCategory") RequestBody mCategory, @Part("sCategory") RequestBody sCategory, @Part("userId") RequestBody userId);
-
-
+    @FormUrlEncoded
+    @POST("getModels.php/")
+  Call<ModelResponse>getModel( @Field("name") String name);
 
 
 }

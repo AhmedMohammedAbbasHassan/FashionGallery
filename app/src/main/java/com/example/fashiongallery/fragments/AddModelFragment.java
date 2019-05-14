@@ -390,15 +390,29 @@ void uploadForm(){
                 @Override
                 public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {
 
+                    ResponseInfo data = response.body();
+
+                    if (data.getCode() == 200){
                     AppUtils.showLoading(false,rotateLoading,getActivity());
-                    Toast.makeText(AppController.getContext(), "done", Toast.LENGTH_SHORT).show();
+
+
+
+                    Toast.makeText(AppController.getContext(), "model uploaded successfully", Toast.LENGTH_SHORT).show();
                     setEmpty();
+                }else{
+
+                        AppUtils.showLoading(false,rotateLoading,getActivity());
+
+                        Toast.makeText(AppController.getContext(), "un unexpected  please try again ", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseInfo> call, Throwable t) {
                     AppUtils.showLoading(false,rotateLoading,getActivity());
-                    Toast.makeText(AppController.getContext(), "error //" +t.getMessage() , Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(AppController.getContext(), "check your connection ", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -454,6 +468,7 @@ void uploadForm(){
         if (spinner.getSelectedItemPosition()==0){
 
             Toast.makeText(AppController.getContext(), "please select sub category", Toast.LENGTH_SHORT).show();
+            valid=false;
         }
 
         return valid;
