@@ -18,6 +18,7 @@ import com.example.fashiongallery.R;
 import com.example.fashiongallery.data.SubCategoryData;
 import com.example.fashiongallery.fragments.ModelListFragment;
 import com.example.fashiongallery.fragments.SubCategoryFragment;
+import com.example.fashiongallery.utils.AppUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -80,9 +81,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                 @Override
                 public void onClick(View v) {
 
+                    AppUtils.sCat = String.valueOf(getAdapterPosition()+1);
+
                     Fragment fragment = new ModelListFragment();
-
-
 
                     FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

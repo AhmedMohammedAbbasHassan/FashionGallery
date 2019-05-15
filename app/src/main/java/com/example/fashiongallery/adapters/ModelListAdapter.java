@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fashiongallery.R;
 import com.example.fashiongallery.api.model.Model;
@@ -47,12 +48,24 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
 
 
-        Model model  = modelList.get(i);
+        final Model model  = modelList.get(i);
         //modelListViewHilder.imageView.setImageResource(model.getModelImage());
         Picasso.get().load(model.getImg_url()).into(modelListViewHilder.imageView);
 
         modelListViewHilder.titleTextView.setText(model.getName());
         modelListViewHilder.priceTextView.setText(model.getPrice());
+
+        if (model.getLikes()!=null||model.getLikes()=="1"){
+
+            modelListViewHilder.likeButton.setBackgroundResource(R.drawable.ic_like2);
+            likeClicked = true;
+        }
+
+        if (model.getFavorites()!=null||model.getFavorites()=="1"){
+
+            modelListViewHilder.addFavoriteButton.setBackgroundResource(R.drawable.ic_lover);
+            favoriteClicked = true;
+        }
 
         modelListViewHilder.addFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override

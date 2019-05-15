@@ -1,5 +1,7 @@
 package com.example.fashiongallery.api.model;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Model {
@@ -20,7 +22,18 @@ public class Model {
     private String img_url  ;
     @SerializedName("user_id")
     private String user_id  ;
+    @SerializedName("likes")
+    private String likes;
+    @SerializedName("favorites")
+    private String favorites;
 
+    public String getFavorites() {
+        return favorites;
+    }
+
+    public String getLikes() {
+        return likes;
+    }
     public String getId() {
         return id;
     }

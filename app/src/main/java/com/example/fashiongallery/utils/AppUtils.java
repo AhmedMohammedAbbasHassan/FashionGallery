@@ -10,6 +10,10 @@ public class AppUtils {
 
 
 
+    public static String mCat ;
+    public static String sCat ;
+
+
   public static void showLoading(boolean show, RotateLoading rotateLoading, Activity activity)
     {
         if (show)

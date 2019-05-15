@@ -19,6 +19,7 @@ import com.example.fashiongallery.AppController;
 import com.example.fashiongallery.R;
 import com.example.fashiongallery.data.MainCategoryData;
 import com.example.fashiongallery.fragments.SubCategoryFragment;
+import com.example.fashiongallery.utils.AppUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -63,6 +64,8 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
             public void onClick(View v) {
 
                 Toast.makeText(AppController.getContext(), "img clicked", Toast.LENGTH_SHORT).show();
+
+                AppUtils.mCat = String.valueOf(i) ;
 
                 Fragment fragment = new SubCategoryFragment();
 

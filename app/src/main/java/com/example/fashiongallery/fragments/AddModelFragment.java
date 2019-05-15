@@ -206,10 +206,10 @@ button.setOnClickListener(new View.OnClickListener() {
 
         myList.add("Choose Category");
 
-        myList.add("Shoes");
-        myList.add("T-Shirt");
         myList.add("Shirt");
+        myList.add("T-Shirt");
         myList.add("Pants");
+        myList.add("Shoes");
         myList.add("Sport");
         myList.add("Caps");
         myList.add("Accessories");
@@ -224,7 +224,7 @@ button.setOnClickListener(new View.OnClickListener() {
         myList.add("Skirts");
         myList.add("T-shirt");
         myList.add("Pants");
-        myList.add("Shose");
+        myList.add("Shoes");
         myList.add("Purse");
         myList.add("Sport");
         myList.add("Accessories");
@@ -235,7 +235,7 @@ button.setOnClickListener(new View.OnClickListener() {
         myList.add("Choose Category");
         myList.add("T-shirt");
         myList.add("Pants");
-        myList.add("Shoses");
+        myList.add("Shoes");
 
     }
 

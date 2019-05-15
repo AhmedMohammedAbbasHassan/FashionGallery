@@ -48,6 +48,7 @@ public class ModelListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
 /*
         Model model1 = new Model();
         model1.setModelImage(R.drawable.model2);
@@ -94,7 +95,7 @@ public class ModelListFragment extends Fragment {
         AppUtils.showLoading(true,rotateLoading,getActivity());
         Retrofit retrofit = Connection.instance().build();
         ClintApi clint = retrofit.create(ClintApi.class);
-        Call<ModelResponse> call = clint.getModel("ahmed");
+        Call<ModelResponse> call = clint.getModel(AppUtils.mCat,AppUtils.sCat,"14");
         call.enqueue(new Callback<ModelResponse>() {
             @Override
             public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
