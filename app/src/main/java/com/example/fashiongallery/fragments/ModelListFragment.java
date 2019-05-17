@@ -1,5 +1,7 @@
 package com.example.fashiongallery.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -95,23 +97,29 @@ public class ModelListFragment extends Fragment {
         AppUtils.showLoading(true,rotateLoading,getActivity());
         Retrofit retrofit = Connection.instance().build();
         ClintApi clint = retrofit.create(ClintApi.class);
-        Call<ModelResponse> call = clint.getModel(AppUtils.mCat,AppUtils.sCat,"14");
+        Call<ModelResponse> call = clint.getModel(AppUtils.mCat,AppUtils.sCat,getUserId());
         call.enqueue(new Callback<ModelResponse>() {
             @Override
             public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
 
 
                 ModelResponse data = response.body();
-                 myList = data.getModels();
 
-
+                  if (data.getCode().equals("200")){
                  Toast.makeText(AppController.getContext(), "done  /" + data.getCode(), Toast.LENGTH_SHORT).show();
+                      myList = data.getModels();
 
 
                 AppUtils.showLoading(false,rotateLoading,getActivity());
                 ModelListAdapter adapter  = new ModelListAdapter(myList,getActivity());
 
                 recyclerView.setAdapter(adapter);
+                  }else{
+
+                      AppUtils.showLoading(false,rotateLoading,getActivity());
+                      Toast.makeText(AppController.getContext(), "no model in this category ", Toast.LENGTH_SHORT).show();
+
+                  }
 
 
             }
@@ -120,13 +128,24 @@ public class ModelListFragment extends Fragment {
             public void onFailure(Call<ModelResponse> call, Throwable t) {
 
                 AppUtils.showLoading(false,rotateLoading,getActivity());
-                Toast.makeText(AppController.getContext(), "error"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AppController.getContext(), "check your connection ", Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
     }
+
+
+    String getUserId(){
+
+
+        SharedPreferences prefs = AppController.getContext().getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
+        String userId  = prefs.getString("userId", "");
+
+        return userId;
+    }
+
 
 
 }

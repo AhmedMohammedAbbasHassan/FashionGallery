@@ -44,7 +44,12 @@ public interface ClintApi {
     Call<ResponseInfo> upload(@Part MultipartBody.Part img, @Part("name") RequestBody name, @Part("price") RequestBody price, @Part("desc") RequestBody desc, @Part("mCategory") RequestBody mCategory, @Part("sCategory") RequestBody sCategory, @Part("userId") RequestBody userId);
     @FormUrlEncoded
     @POST("getModels.php/")
-  Call<ModelResponse>getModel( @Field("mCategory") String mCategory , @Field("sCategory") String sCategory ,@Field("userId") String userId);
+    Call<ModelResponse>getModel( @Field("mCategory") String mCategory , @Field("sCategory") String sCategory ,@Field("userId") String userId);
+
+    @FormUrlEncoded
+    @POST("likeApi.php/")
+    Call<ResponseInfo>doLike( @Field("user_id") String userId , @Field("model_id") String modelId ,@Field("likeOrDis") String likeOrDis);
+
 
 
 }

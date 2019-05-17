@@ -11,11 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fashiongallery.AppController;
 import com.example.fashiongallery.R;
 import com.example.fashiongallery.api.model.Model;
+import com.example.fashiongallery.api.services.ClintApi;
+import com.example.fashiongallery.api.services.Connection;
+import com.example.fashiongallery.responses.ModelResponse;
+import com.example.fashiongallery.responses.ResponseInfo;
+import com.example.fashiongallery.utils.AppUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.ModelListViewHilder> {
 
@@ -49,39 +60,49 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
 
         final Model model  = modelList.get(i);
-        //modelListViewHilder.imageView.setImageResource(model.getModelImage());
+
         Picasso.get().load(model.getImg_url()).into(modelListViewHilder.imageView);
 
         modelListViewHilder.titleTextView.setText(model.getName());
         modelListViewHilder.priceTextView.setText(model.getPrice());
 
-        if (model.getLikes()!=null||model.getLikes()=="1"){
+        if (model.getLikes()!=null && !model.getLikes().equals("0")){
 
             modelListViewHilder.likeButton.setBackgroundResource(R.drawable.ic_like2);
-            likeClicked = true;
+            modelListViewHilder.likeClick = true;
+        }else if(model.getLikes()=="1"){
+
+            modelListViewHilder.likeButton.setBackgroundResource(R.drawable.ic_like2);
+            modelListViewHilder.likeClick = true;
+
+
         }
 
-        if (model.getFavorites()!=null||model.getFavorites()=="1"){
+
+        if (model.getFavorites()!=null && !model.getFavorites().equals("0")){
 
             modelListViewHilder.addFavoriteButton.setBackgroundResource(R.drawable.ic_lover);
-            favoriteClicked = true;
+            modelListViewHilder.favoriteClick = true;
+        }else if (model.getFavorites()=="1"){
+
+            modelListViewHilder.addFavoriteButton.setBackgroundResource(R.drawable.ic_lover);
+            modelListViewHilder.favoriteClick = true;
+
         }
 
         modelListViewHilder.addFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (favoriteClicked)
+                if (modelListViewHilder.favoriteClick)
                 {
 
+                    likeOrDisLiske(model.getId(),modelListViewHilder.addFavoriteButton,modelListViewHilder,"4");
 
-                    modelListViewHilder.addFavoriteButton.setBackgroundResource(R.drawable.ic_loving_heart);
-                    favoriteClicked = false;
 
                 }else{
 
-                    modelListViewHilder.addFavoriteButton.setBackgroundResource(R.drawable.ic_lover);
-                    favoriteClicked = true;
+                    likeOrDisLiske(model.getId(),modelListViewHilder.addFavoriteButton,modelListViewHilder,"3");
 
 
                 }
@@ -91,22 +112,18 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
         });
 
 
-
         modelListViewHilder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (likeClicked)
+
+
+                if (modelListViewHilder.likeClick)
                 {
+                    likeOrDisLiske(model.getId(),modelListViewHilder.likeButton,modelListViewHilder,"2");
 
+                  }else{
 
-                    modelListViewHilder.likeButton.setBackgroundResource(R.drawable.ic_like);
-                    likeClicked = false;
-
-                }else{
-
-                    modelListViewHilder.likeButton.setBackgroundResource(R.drawable.ic_like2);
-                    likeClicked = true;
-
+                    likeOrDisLiske(model.getId(),modelListViewHilder.likeButton,modelListViewHilder,"1");
 
                 }
 
@@ -120,12 +137,16 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
     }
 
 
+
+
     public class ModelListViewHilder extends RecyclerView.ViewHolder
     {
 
         ImageView imageView;
         TextView titleTextView , priceTextView;
         Button   likeButton , addFavoriteButton;
+        boolean likeClick = false ;
+        boolean favoriteClick =false;
 
        public ModelListViewHilder(View view) {
       super(view);
@@ -144,4 +165,72 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
 
     }
+
+
+
+    void  likeOrDisLiske(String mId, final Button button, final ModelListViewHilder holder, final String likeOrDis){
+
+
+
+
+        Retrofit retrofit = Connection.instance().build();
+        ClintApi clint = retrofit.create(ClintApi.class);
+        Call<ResponseInfo> call = clint.doLike("14",mId,likeOrDis);
+        call.enqueue(new Callback<ResponseInfo>() {
+    @Override
+    public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {
+
+        ResponseInfo data = response.body();
+
+        if (data.getCode() == 200)
+        {
+
+            if (likeOrDis.equals("1"))
+            {
+            button.setBackgroundResource(R.drawable.ic_like2);
+            holder.likeClick = true;
+            }else if (likeOrDis.equals("2"))
+            {
+
+                button.setBackgroundResource(R.drawable.ic_like);
+                holder.likeClick = false;
+
+            }else if (likeOrDis.equals("3"))
+            {
+
+                button.setBackgroundResource(R.drawable.ic_lover);
+                holder.favoriteClick = true;
+
+            }else if (likeOrDis.equals("4"))
+            {
+
+                button.setBackgroundResource(R.drawable.ic_loving_heart);
+                holder.favoriteClick = false;
+
+
+            }
+
+        }else{
+
+            Toast.makeText(AppController.getContext(), "201 error", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+    }
+
+    @Override
+    public void onFailure(Call<ResponseInfo> call, Throwable t) {
+
+
+        Toast.makeText(AppController.getContext(), "in on failer ", Toast.LENGTH_SHORT).show();
+
+    }
+});
+
+
+    }
+
+
+
 }
