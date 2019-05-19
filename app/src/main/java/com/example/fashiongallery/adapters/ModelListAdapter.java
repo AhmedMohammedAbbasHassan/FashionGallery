@@ -1,7 +1,12 @@
 package com.example.fashiongallery.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +21,12 @@ import com.example.fashiongallery.R;
 import com.example.fashiongallery.api.model.Model;
 import com.example.fashiongallery.api.services.ClintApi;
 import com.example.fashiongallery.api.services.Connection;
+import com.example.fashiongallery.fragments.ModelDetFragment;
+import com.example.fashiongallery.fragments.ModelListFragment;
 import com.example.fashiongallery.responses.ModelResponse;
 import com.example.fashiongallery.responses.ResponseInfo;
 import com.example.fashiongallery.utils.AppUtils;
+import com.example.fashiongallery.utils.SharedPreferenceUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -129,6 +137,39 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
             }
         });
+
+
+       modelListViewHilder.imageView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               Bundle bundle = new Bundle();
+               bundle.putString("userName",model.getUser_name());
+               bundle.putString("userImg",model.getUser_img());
+               bundle.putString("userPhone",model.getPhone());
+               bundle.putString("userLocation",model.getLocation());
+
+               bundle.putString("modelImg",model.getImg_url());
+               bundle.putString("modelName",model.getName());
+               bundle.putString("modelPrice",model.getPrice());
+               bundle.putString("modelDesc",model.getDescription());
+
+
+
+
+
+               Fragment fragment = new ModelDetFragment();
+               fragment.setArguments(bundle);
+               FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
+               FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+               fragmentTransaction.replace(R.id.home_screen_area,fragment);
+               fragmentTransaction.commit();
+
+
+           }
+       });
+
     }
 
     @Override
@@ -175,7 +216,7 @@ public class ModelListAdapter extends RecyclerView.Adapter<ModelListAdapter.Mode
 
         Retrofit retrofit = Connection.instance().build();
         ClintApi clint = retrofit.create(ClintApi.class);
-        Call<ResponseInfo> call = clint.doLike("14",mId,likeOrDis);
+        Call<ResponseInfo> call = clint.doLike(SharedPreferenceUtils.getUserId(),mId,likeOrDis);
         call.enqueue(new Callback<ResponseInfo>() {
     @Override
     public void onResponse(Call<ResponseInfo> call, Response<ResponseInfo> response) {

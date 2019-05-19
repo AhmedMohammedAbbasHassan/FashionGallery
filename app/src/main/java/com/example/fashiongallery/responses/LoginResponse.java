@@ -17,6 +17,18 @@ public class LoginResponse {
     private String gender  ;
     @SerializedName("phone")
     private String phone   ;
+    @SerializedName("location")
+    private String location   ;
+    @SerializedName("img")
+    private String img   ;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getImg() {
+        return img;
+    }
 
     public int getCode() {
         return code;

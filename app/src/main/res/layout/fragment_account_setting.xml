@@ -1,17 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp"
+
+    >
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/user_profile_image_setting"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/profile"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/colorSplash"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+
+        />
 
     <TextView
+        android:id="@+id/chang_tv_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="Account Setting Fragment"
-        android:layout_centerHorizontal="true"
+        android:text="Change Your Photo"
+        android:textSize="16sp"
+        android:textColor="@color/colorSplash"
+        android:textStyle="bold"
+        android:layout_below="@id/user_profile_image_setting"
         android:gravity="center"
+        android:layout_marginTop="5dp"
         />
 
 
+    <TextView
+        android:id="@+id/title_user_name_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chang_tv_setting"
+        android:layout_marginTop="10dp"
+        android:text="User Name : "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSplash"
+        android:layout_marginLeft="5dp"
+        />
+
+
+    <EditText
+        android:id="@+id/user_name_setting_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_user_name_setting"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:hint="Enter Your Name"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        />
+
+
+
+    <TextView
+        android:id="@+id/title_user_email_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name_setting_et"
+        android:layout_marginTop="10dp"
+        android:text="User Email : "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSplash"
+        android:layout_marginLeft="5dp"
+
+        />
+
+
+    <EditText
+        android:id="@+id/user_email_setting_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_user_email_setting"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:hint="Enter Your Email"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+
+        />
+
+
+    <TextView
+        android:id="@+id/title_user_phone_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_email_setting_et"
+        android:layout_marginTop="10dp"
+        android:text="User Phone : "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSplash"
+        android:layout_marginLeft="5dp"
+
+        />
+
+
+    <EditText
+        android:id="@+id/user_phone_setting_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_user_phone_setting"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:hint="Enter Your Phone"
+        android:inputType="phone"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        />
+
+
+
+    <TextView
+        android:id="@+id/title_user_password_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_phone_setting_et"
+        android:layout_marginTop="10dp"
+        android:text="User Password : "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSplash"
+        android:layout_marginLeft="5dp"
+
+
+        />
+
+
+    <EditText
+        android:id="@+id/user_password_setting_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_user_password_setting"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:hint="Model Name"
+        android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        />
+
+
+
+    <TextView
+        android:id="@+id/title_user_location_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_password_setting_et"
+        android:layout_marginTop="10dp"
+        android:text="User Location : "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorSplash"
+        android:layout_marginLeft="5dp"
+
+        />
+
+
+    <EditText
+        android:id="@+id/user_location_setting_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_user_location_setting"
+        android:background="@drawable/input_design2"
+        android:padding="15dp"
+        android:hint="Pick Your Location"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:enabled="false"
+
+        />
+
+
+    <LinearLayout
+        android:id="@+id/container_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_location_setting_et"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+
+        >
+
+
+        <ImageView
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:src="@drawable/ic_facebook_placeholder_for_locate_places_on_maps"
+            android:layout_marginTop="3dp"
+            />
+
+        <TextView
+            android:id="@+id/pick_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick your Location "
+            android:textSize="16sp"
+            android:textColor="@color/colorSplash"
+            android:textStyle="bold"
+            />
+
+
+
+
+    </LinearLayout>
+
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Update Setting"
+    android:background="@drawable/buttons2"
+    android:textColor="@android:color/white"
+    android:textStyle="bold"
+    android:layout_below="@+id/container_location"
+    android:layout_marginTop="20dp"
+
+    />
+
+
 </RelativeLayout>
+
+
+
+
+
+</ScrollView>

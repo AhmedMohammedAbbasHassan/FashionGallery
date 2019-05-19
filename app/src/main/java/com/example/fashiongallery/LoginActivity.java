@@ -86,7 +86,24 @@ public class LoginActivity extends AppCompatActivity {
                     if (loginResponse.getCode() == 200)
                     {
 
-                        SharedPreferenceUtils.saveUserDate(loginResponse.getId(),loginResponse.getEmail(),loginResponse.getUserName(),loginResponse.getGender());
+                        String phone = "";
+                        String location = "" ;
+                        String img = "";
+                       if (loginResponse.getPhone()!=null){
+
+                           phone = loginResponse.getPhone();
+                       }
+                       if (loginResponse.getLocation()!=null){
+
+                           location = loginResponse.getLocation();
+                       }
+
+                       if (loginResponse.getImg()!=null){
+
+                           img = loginResponse.getImg();
+                       }
+
+                        SharedPreferenceUtils.saveUserDate(loginResponse.getId(),loginResponse.getEmail(),loginResponse.getUserName(),loginResponse.getGender(),phone,location,img);
                         Toast.makeText(LoginActivity.this, "user name is :" + loginResponse.getUserName(), Toast.LENGTH_SHORT).show();
                         AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
                         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);

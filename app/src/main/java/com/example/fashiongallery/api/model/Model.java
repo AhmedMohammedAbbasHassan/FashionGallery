@@ -26,6 +26,31 @@ public class Model {
     private String likes;
     @SerializedName("favorites")
     private String favorites;
+    @SerializedName("user_name")
+    private String user_name;
+    @SerializedName("phone")
+    private String phone;
+    @SerializedName("user_img")
+    private String user_img;
+    @SerializedName("location")
+    private String location;
+
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getUser_img() {
+        return user_img;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 
     public String getFavorites() {
         return favorites;

@@ -39,6 +39,7 @@ import com.example.fashiongallery.api.services.Connection;
 import com.example.fashiongallery.responses.ResponseInfo;
 import com.example.fashiongallery.responses.ServerResponse;
 import com.example.fashiongallery.utils.AppUtils;
+import com.example.fashiongallery.utils.SharedPreferenceUtils;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -380,7 +381,7 @@ void uploadForm(){
             RequestBody desc = RequestBody.create(MultipartBody.FORM, modelDesc);
             RequestBody mCategoryFinal = RequestBody.create(MultipartBody.FORM, mCategory);
             RequestBody sCategory = RequestBody.create(MultipartBody.FORM, String.valueOf(spinner.getSelectedItemPosition()));
-            RequestBody userId = RequestBody.create(MultipartBody.FORM, getUserId());
+            RequestBody userId = RequestBody.create(MultipartBody.FORM, SharedPreferenceUtils.getUserId());
 
             Retrofit retrofit = Connection.instance().build();
             ClintApi clint = retrofit.create(ClintApi.class);
@@ -472,17 +473,6 @@ void uploadForm(){
         }
 
         return valid;
-    }
-
-
-
-    String getUserId(){
-
-
-        SharedPreferences prefs = AppController.getContext().getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
-        String userId  = prefs.getString("userId", "");
-
-        return userId;
     }
 
 

@@ -29,6 +29,7 @@ import com.example.fashiongallery.fragments.AddModelFragment;
 import com.example.fashiongallery.fragments.FavoriteFragment;
 import com.example.fashiongallery.fragments.HomeFragment;
 import com.example.fashiongallery.fragments.MyGalleryFragment;
+import com.example.fashiongallery.utils.SharedPreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +78,8 @@ public class HomeActivity extends AppCompatActivity
         TextView userNameTextView = headerView.findViewById(R.id.user_name_nav);
         TextView emailTextView    = headerView.findViewById(R.id.email_nav);
 
-        userNameTextView.setText(getUserNameFromPref());
-        emailTextView.setText(getUserEmailFromPref());
+        userNameTextView.setText(SharedPreferenceUtils.getUserNameFromPref());
+        emailTextView.setText(SharedPreferenceUtils.getUserEmailFromPref());
 
     }
 
@@ -165,23 +166,4 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    String getUserNameFromPref(){
-
-
-        SharedPreferences prefs = this.getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
-        String userName  = prefs.getString("userName", "");
-
-        return userName;
-    }
-
-
-
-    String getUserEmailFromPref(){
-
-
-        SharedPreferences prefs = this.getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
-        String email  = prefs.getString("userEmail", "");
-
-        return email;
-    }
 }
