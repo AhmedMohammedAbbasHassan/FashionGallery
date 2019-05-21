@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fashiongallery.AppController;
 import com.example.fashiongallery.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,7 +25,7 @@ public class ModelDetFragment extends Fragment {
     private ImageView modelImageView  ;
     private TextView userNameTextView ,modelNameTextView , modelPriceTextView  , modelDsscTextView ;
     private CircleImageView userImgCircleImageView  ;
-
+    private Button phoneButton , locationButton ;
     private String userPhone ;
     private String userLocation ;
 
@@ -41,8 +44,8 @@ public class ModelDetFragment extends Fragment {
 
         String userName = getArguments().getString("userName");
         String userImg = getArguments().getString("userImg");
-        String userPhone = getArguments().getString("userPhone");
-        String userLocation = getArguments().getString("userLocation");
+         userPhone = getArguments().getString("userPhone");
+         userLocation = getArguments().getString("userLocation");
 
 
         String modelImg = getArguments().getString("modelImg");
@@ -58,8 +61,26 @@ public class ModelDetFragment extends Fragment {
         modelPriceTextView  = (TextView)view.findViewById(R.id.model_price_det);
         modelDsscTextView  = (TextView)view.findViewById(R.id.desc_model_det);
         modelImageView     = (ImageView)view.findViewById(R.id.img_det) ;
+        userImgCircleImageView = (CircleImageView)view.findViewById(R.id.user_profile_image_det);
+        phoneButton = (Button)view.findViewById(R.id.call_btn_det);
+        locationButton = (Button)view.findViewById(R.id.location_btn_det);
 
 
+
+        phoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AppController.getContext(), userPhone, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AppController.getContext(), userLocation, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 

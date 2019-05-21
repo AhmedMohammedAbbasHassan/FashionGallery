@@ -1,11 +1,14 @@
 package com.example.fashiongallery.api.services;
 
 
+import android.support.annotation.Nullable;
+
 import com.example.fashiongallery.responses.LoginResponse;
 import com.example.fashiongallery.responses.ModelResponse;
 import com.example.fashiongallery.responses.ResponseInfo;
 import com.example.fashiongallery.responses.ServerResponse;
 import com.example.fashiongallery.responses.SignupResponse;
+import com.example.fashiongallery.responses.UpdateUserResponse;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -51,5 +54,11 @@ public interface ClintApi {
     Call<ResponseInfo>doLike( @Field("user_id") String userId , @Field("model_id") String modelId ,@Field("likeOrDis") String likeOrDis);
 
 
+    @Multipart
+    @POST("updateUserInf.php/")
+    Call<UpdateUserResponse> updateUser( @Part MultipartBody.Part img, @Part("userId") RequestBody userId, @Part("userEmail") RequestBody userEmail, @Part("userName") RequestBody userName, @Part("userPassword") RequestBody userPassword, @Part("userPhone") RequestBody userPhone, @Part("userLocation") RequestBody userLocation);
+    @FormUrlEncoded
+    @POST("updateUserWithoutImg.php/")
+    Call<UpdateUserResponse> updateUserWithOutImg( @Field("userId") String userId, @Field("userEmail") String userEmail, @Field("userName") String userName, @Field("userPassword") String userPassword, @Field("userPhone") String userPhone, @Field("userLocation") String userLocation);
 
 }

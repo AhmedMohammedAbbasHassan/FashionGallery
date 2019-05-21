@@ -11,7 +11,7 @@ public class SharedPreferenceUtils {
 
 
 
-  public static void saveUserDate(String id,String email,String userName,String gender,String phone,String location , String userImg )
+  public static void saveUserDate(String id,String email,String userName,String gender,String phone,String location , String userImg, String password )
 
     {
         SharedPreferences sharedPreferences = AppController.getContext().getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
@@ -23,6 +23,7 @@ public class SharedPreferenceUtils {
         editor.putString("userPhone", phone);
         editor.putString("userLocation", location);
         editor.putString("userImg", userImg);
+        editor.putString("password", password);
         editor.commit();
     }
 
@@ -35,6 +36,15 @@ public class SharedPreferenceUtils {
         return userId;
     }
 
+
+    public static String getUserPassword(){
+
+
+        SharedPreferences prefs = AppController.getContext().getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
+        String password  = prefs.getString("password", "");
+
+        return password;
+    }
 
 
 
@@ -90,4 +100,13 @@ public class SharedPreferenceUtils {
     }
 
 
+
+    public static String getUserGenderFromPref(){
+
+
+        SharedPreferences prefs =  AppController.getContext().getSharedPreferences("LoggedUserPref", Context.MODE_PRIVATE);
+        String gender  = prefs.getString("userGender", "");
+
+        return gender;
+    }
 }

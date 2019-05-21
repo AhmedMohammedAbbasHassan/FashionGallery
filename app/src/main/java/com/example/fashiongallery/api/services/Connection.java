@@ -10,8 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by ahmedmike on 10/1/2017.
  */
 public class Connection {
-    String baseUrl = "http://192.168.1.5:8082/fashionGallery/";
-
+    String baseUrl = "http://192.168.1.7:8082/fashionGallery/";
 
     static Retrofit.Builder builder;
     private  Connection() {

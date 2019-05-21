@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                            img = loginResponse.getImg();
                        }
 
-                        SharedPreferenceUtils.saveUserDate(loginResponse.getId(),loginResponse.getEmail(),loginResponse.getUserName(),loginResponse.getGender(),phone,location,img);
+                        SharedPreferenceUtils.saveUserDate(loginResponse.getId(),loginResponse.getEmail(),loginResponse.getUserName(),loginResponse.getGender(),phone,location,img,loginResponse.getPassword());
                         Toast.makeText(LoginActivity.this, "user name is :" + loginResponse.getUserName(), Toast.LENGTH_SHORT).show();
                         AppUtils.showLoading(false,rotateLoading,LoginActivity.this);
                         Intent intent = new Intent(LoginActivity.this,HomeActivity.class);

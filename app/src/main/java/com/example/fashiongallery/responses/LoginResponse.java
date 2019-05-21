@@ -21,6 +21,12 @@ public class LoginResponse {
     private String location   ;
     @SerializedName("img")
     private String img   ;
+    @SerializedName("password")
+    private String password   ;
+
+    public String getPassword() {
+        return password;
+    }
 
     public String getLocation() {
         return location;

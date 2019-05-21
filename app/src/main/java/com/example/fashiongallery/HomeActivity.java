@@ -30,16 +30,19 @@ import com.example.fashiongallery.fragments.FavoriteFragment;
 import com.example.fashiongallery.fragments.HomeFragment;
 import com.example.fashiongallery.fragments.MyGalleryFragment;
 import com.example.fashiongallery.utils.SharedPreferenceUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
 
-
+    CircleImageView circleImageView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +80,17 @@ public class HomeActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_name_nav);
         TextView emailTextView    = headerView.findViewById(R.id.email_nav);
+
+         circleImageView =  headerView.findViewById(R.id.user_profile_image);
+        circleImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+
+
+        if (SharedPreferenceUtils.getUserImgFromPref()!=null && !SharedPreferenceUtils.getUserImgFromPref().isEmpty() ){
+
+            Picasso.get().load(SharedPreferenceUtils.getUserImgFromPref()).into(circleImageView);
+
+        }
 
         userNameTextView.setText(SharedPreferenceUtils.getUserNameFromPref());
         emailTextView.setText(SharedPreferenceUtils.getUserEmailFromPref());
