@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
 
 
     CircleImageView circleImageView ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +56,6 @@ public class HomeActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.home_screen_area,fragment);
         fragmentTransaction.commit();
-
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -168,7 +167,7 @@ public class HomeActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            fragmentTransaction.replace(R.id.home_screen_area,fragment);
+            fragmentTransaction.replace(R.id.home_screen_area,fragment).addToBackStack(null);
             fragmentTransaction.commit();
 
         }

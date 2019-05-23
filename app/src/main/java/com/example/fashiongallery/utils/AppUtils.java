@@ -1,9 +1,10 @@
 package com.example.fashiongallery.utils;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.view.WindowManager;
 
+import com.example.fashiongallery.AppController;
 import com.victor.loading.rotate.RotateLoading;
 
 public class AppUtils {
@@ -23,6 +24,8 @@ public class AppUtils {
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         }else {
+
+            Context context = AppController.getContext() ;
 
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             rotateLoading.stop();

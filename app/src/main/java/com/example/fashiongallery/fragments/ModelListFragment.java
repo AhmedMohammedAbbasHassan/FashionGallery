@@ -30,7 +30,7 @@ public class ModelListFragment extends Fragment {
    private RotateLoading rotateLoading;
     private RecyclerView recyclerView ;
      List<Model> myList;
-
+    Call<ModelResponse> call ;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class ModelListFragment extends Fragment {
         AppUtils.showLoading(true,rotateLoading,getActivity());
         Retrofit retrofit = Connection.instance().build();
         ClintApi clint = retrofit.create(ClintApi.class);
-        Call<ModelResponse> call = clint.getModel(AppUtils.mCat,AppUtils.sCat, SharedPreferenceUtils.getUserId());
+        call = clint.getModel(AppUtils.mCat,AppUtils.sCat, SharedPreferenceUtils.getUserId());
         call.enqueue(new Callback<ModelResponse>() {
             @Override
             public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
@@ -95,16 +95,22 @@ public class ModelListFragment extends Fragment {
             @Override
             public void onFailure(Call<ModelResponse> call, Throwable t) {
 
-                AppUtils.showLoading(false,rotateLoading,getActivity());
-                Toast.makeText(AppController.getContext(), "check your connection ", Toast.LENGTH_SHORT).show();
-
+                if (!call.isCanceled()) {
+                    AppUtils.showLoading(false, rotateLoading, getActivity());
+                    Toast.makeText(AppController.getContext(), "check your connection ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
 
+        call.cancel();
+        AppUtils.showLoading(false,rotateLoading,getActivity());
 
-
+    }
 }

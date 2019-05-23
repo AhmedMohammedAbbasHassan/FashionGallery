@@ -78,7 +78,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
                 FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.home_screen_area,fragment);
+                fragmentTransaction.replace(R.id.home_screen_area,fragment).addToBackStack(null);
                 fragmentTransaction.commit();
 
 
