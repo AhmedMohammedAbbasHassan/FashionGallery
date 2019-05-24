@@ -61,4 +61,8 @@ public interface ClintApi {
     @POST("updateUserWithoutImg.php/")
     Call<UpdateUserResponse> updateUserWithOutImg( @Field("userId") String userId, @Field("userEmail") String userEmail, @Field("userName") String userName, @Field("userPassword") String userPassword, @Field("userPhone") String userPhone, @Field("userLocation") String userLocation);
 
+    @FormUrlEncoded
+    @POST("getMyGallery.php/")
+    Call<ModelResponse> getMyGallery( @Field("userId") String userId);
+
 }

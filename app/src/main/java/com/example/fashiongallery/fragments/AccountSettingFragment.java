@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.fashiongallery.AppController;
 import com.example.fashiongallery.R;
 import com.example.fashiongallery.api.services.ClintApi;
@@ -29,6 +30,8 @@ import com.example.fashiongallery.responses.ResponseInfo;
 import com.example.fashiongallery.responses.UpdateUserResponse;
 import com.example.fashiongallery.utils.AppUtils;
 import com.example.fashiongallery.utils.SharedPreferenceUtils;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.victor.loading.rotate.RotateLoading;
@@ -95,7 +98,12 @@ public class AccountSettingFragment extends Fragment {
 
         if (SharedPreferenceUtils.getUserImgFromPref()!=null && !SharedPreferenceUtils.getUserImgFromPref().isEmpty() ){
 
-            Picasso.get().load(SharedPreferenceUtils.getUserImgFromPref()).into(userImgCircleImageView);
+           Picasso.get().load(SharedPreferenceUtils.getUserImgFromPref())
+                   .memoryPolicy(MemoryPolicy.NO_CACHE)
+                   .networkPolicy(NetworkPolicy.NO_CACHE)
+                   .into(userImgCircleImageView);
+
+          //  Glide.with(this).load(SharedPreferenceUtils.getUserImgFromPref()).into(userImgCircleImageView);
 
         }
 
@@ -338,12 +346,25 @@ public class AccountSettingFragment extends Fragment {
                 @Override
                 public void onResponse(Call<UpdateUserResponse> call, Response<UpdateUserResponse> response) {
 
+                    String imgUrl = "";
+
                     UpdateUserResponse data = response.body();
 
                     if (data.getCode() == 200){
                         AppUtils.showLoading(false,rotateLoading,getActivity());
 
-   SharedPreferenceUtils.saveUserDate(SharedPreferenceUtils.getUserId(),email,userName,SharedPreferenceUtils.getUserGenderFromPref(),phone,location,data.getUpdatedImgUrl(),password);
+                        if (imagePath!=null&&!imagePath.isEmpty()){
+
+                         imgUrl = data.getUpdatedImgUrl()  ;
+
+
+                        }else{
+
+                            imgUrl = SharedPreferenceUtils.getUserImgFromPref();
+                        }
+
+
+   SharedPreferenceUtils.saveUserDate(SharedPreferenceUtils.getUserId(),email,userName,SharedPreferenceUtils.getUserGenderFromPref(),phone,location,imgUrl,password);
 
                         Toast.makeText(AppController.getContext(), "Setting Updating successfully", Toast.LENGTH_SHORT).show();
                     }else{

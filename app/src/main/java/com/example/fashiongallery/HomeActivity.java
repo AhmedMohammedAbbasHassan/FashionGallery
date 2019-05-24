@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.fashiongallery.adapters.MainCategoryAdapter;
 import com.example.fashiongallery.data.MainCategoryData;
 import com.example.fashiongallery.fragments.AccountSettingFragment;
@@ -30,6 +31,8 @@ import com.example.fashiongallery.fragments.FavoriteFragment;
 import com.example.fashiongallery.fragments.HomeFragment;
 import com.example.fashiongallery.fragments.MyGalleryFragment;
 import com.example.fashiongallery.utils.SharedPreferenceUtils;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -87,7 +90,12 @@ public class HomeActivity extends AppCompatActivity
 
         if (SharedPreferenceUtils.getUserImgFromPref()!=null && !SharedPreferenceUtils.getUserImgFromPref().isEmpty() ){
 
-            Picasso.get().load(SharedPreferenceUtils.getUserImgFromPref()).into(circleImageView);
+            Picasso.get().load(SharedPreferenceUtils.getUserImgFromPref())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(circleImageView);
+
+         //   Glide.with(this).load(SharedPreferenceUtils.getUserImgFromPref()).into(circleImageView);
 
         }
 

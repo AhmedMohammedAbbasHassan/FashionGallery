@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="My Gallery Fragment"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/loading_my_gallery"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:loading_width="5dp"
+        app:loading_color="#894B37"
+        android:layout_centerInParent="true"
+        android:clickable="true"
         />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_gallery_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </RelativeLayout>
