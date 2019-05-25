@@ -65,4 +65,11 @@ public interface ClintApi {
     @POST("getMyGallery.php/")
     Call<ModelResponse> getMyGallery( @Field("userId") String userId);
 
+    @FormUrlEncoded
+    @POST("getMyFavorites.php/")
+    Call<ModelResponse> getMyFavorites( @Field("userId") String userId);
+
+
+
+
 }

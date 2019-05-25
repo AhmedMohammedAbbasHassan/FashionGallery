@@ -46,7 +46,7 @@ public class ModelListFragment extends Fragment {
 
         recyclerView = (RecyclerView)view.findViewById(R.id.model_list_recycler);
         recyclerView.setHasFixedSize(true);
-          rotateLoading = (RotateLoading)view.findViewById(R.id.loading_model_list);
+        rotateLoading = (RotateLoading)view.findViewById(R.id.loading_model_list);
 
         LinearLayoutManager llm = new LinearLayoutManager(AppController.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
